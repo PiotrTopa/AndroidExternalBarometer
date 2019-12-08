@@ -17,7 +17,7 @@ MODULE_LICENSE("GPL");
 MODULE_VERSION("0.1.0");
 MODULE_ALIAS("sensor:barometer");
 
-static ssize_t barometer_dev_fops_write(struct file *, const char __user *, size_t, loff_t *);
+static ssize_t barometer_dev_fops_write(struct file*, const char __user*, size_t, loff_t*);
 void barometer_dev_unregister(void);
 
 static int barometer_dev_major = 0;
@@ -26,8 +26,8 @@ static dev_t barometer_dev_number;
 static const char* barometer_dev_name = "TopaBarometer";
 static const char* barometer_dev_classname = "barometer";
 
-struct class *barometer_dev_class;
-struct device *barometer_dev_device;
+struct class* barometer_dev_class;
+struct device* barometer_dev_device;
 
 // /dev/barometer reading buffer
 static char command_buffer[20];
@@ -56,7 +56,7 @@ static void command_buffer_parse_command(const char* key, const char* value) {
   printk(KERN_DEBUG "%s: unknown command: %s", barometer_dev_name, key);
 }
 
-static void command_buffer_parse_line(const char * line) {
+static void command_buffer_parse_line(const char* line) {
   char key[64];
   char value[64];
   char* delimiter;
@@ -84,7 +84,7 @@ static void command_buffer_parse(void) {
 }
 
 // kernel device interface
-static ssize_t barometer_dev_fops_write(struct file *fp, const char __user *user_buffer, size_t count, loff_t *position) {
+static ssize_t barometer_dev_fops_write(struct file* fp, const char __user* user_buffer, size_t count, loff_t* position) {
   char buff[10];
   size_t i;
   printk(KERN_NOTICE "%s: fops_write, count: %i, pos: %i", barometer_dev_name, (int) count, (int) *position);
